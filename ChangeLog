@@ -1,3 +1,15 @@
+2002-09-21  Masatake YAMATO  <jet@gyve.org>
+
+	* configure.in: added -dl to LIBPSTOEDIT_LIBS.
+
+2002-09-20  Martin Weber <martweb@gmx.net>
+
+	* output-er.c: corrected output format.
+
+	* pxl-outline.c: improved speed.
+
+	Message-ID: <3D89F00F.E3F18E48@gmx.net>
+
 2002-09-20  Masatake YAMATO  <jet@gyve.org>
 
 	* autotrace.m4: did the same as frontline.m4.

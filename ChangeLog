@@ -1,3 +1,9 @@
+2003-06-10  Masatake YAMATO  <jet@gyve.org>
+
+	* Makefile.am: Fix a typo.
+	(libautotrace_la_SOURCES): Added module.c.
+	Suggested by "jakobfrandsen" <jakobfrandsen@yahoo.dk>.
+
 2003-06-08  Masatake YAMATO  <jet@gyve.org>
 
 	* private.h (struct _at_bitmap_reader): Defined.

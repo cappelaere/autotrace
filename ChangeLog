@@ -1,3 +1,7 @@
+2001-03-25  Masatake YAMATO  <jet@gyve.org>
+
+	* configure.in: VERSION 0.27a.
+
 2001-03-24  Masatake YAMATO  <jet@gyve.org>
 	
 	* Makefile.am (autotrace_LDADD): Added -lm.

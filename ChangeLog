@@ -1,3 +1,8 @@
+2002-10-08  Masatake YAMATO  <jet@gyve.org>
+
+	* autotrace.h (at_doc__width_factor): added
+	label for width_factor.
+
 2002-10-07  Masatake YAMATO  <jet@gyve.org>
 
 	* input-magick.c (input_magick_reader): removed

@@ -1,4 +1,10 @@
-2001-03-13  Masatake YAMATO  <masata-y@gyve.aist-nara.ac.jp>
+2001-03-14  Masatake YAMATO  <jet@gyve.org>
+
+	* configure.in: Check zlib.
+	Print the required version of libpng. Suggested by 
+	Martin. Message-ID: <3AABC7D4.1E7CDAA@gmx.net>.
+
+2001-03-13  Masatake YAMATO  <jet@gyve.org>
 
 	Applied a patch from Martin.
 	Message-ID: <3AAD4C14.6072AD3C@gmx.net>.
@@ -6,7 +12,7 @@
 	* input-magick.c (magick_load_image): Improved supports
 	for various version of libmagick.
 
-2001-03-13  Masatake YAMATO  <masata-y@gyve.aist-nara.ac.jp>
+2001-03-13  Masatake YAMATO  <jet@gyve.org>
 
 	Applied a patch from Martin.
 	Message-ID: <3AAD4C65.AB2EAF23@gmx.net>.

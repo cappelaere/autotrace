@@ -1,3 +1,9 @@
+2001-01-20  Masatake YAMATO  <jet@gyve.org>
+
+	* input-magick.c: Appled a patch from Martin.
+	Added special care for 
+	(MagickLibVersion >= 0x500) && (MagickLibVersion <= 0x525).
+
 2001-01-10  Masatake YAMATO  <jet@gyve.org>
 
 	* median.c: Appled a patch from Martin.

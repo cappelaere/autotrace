@@ -46,7 +46,7 @@ typedef struct {
     Histogram       histogram; /* holds the histogram */ 
 } QuantizeObj; 
  
-void quantize(at_bitmap*, long ncolors, const at_color *bgColor,
+void quantize(at_bitmap_type*, long ncolors, const at_color *bgColor,
 	      QuantizeObj**, at_exception_type * exp); 
 
 void quantize_object_free(QuantizeObj * obj);

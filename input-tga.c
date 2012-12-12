@@ -104,10 +104,10 @@ static struct
 } tga_footer;
 
 
-static at_bitmap ReadImage (FILE *fp,
+static at_bitmap_type ReadImage (FILE *fp,
 				 struct tga_header *hdr,
 				 at_exception_type * exp);
-at_bitmap
+at_bitmap_type
 input_tga_reader (gchar* filename,
 		  at_input_opts_type * opts,
 		  at_msg_func msg_func, 
@@ -117,7 +117,7 @@ input_tga_reader (gchar* filename,
   FILE *fp;
   struct tga_header hdr;
 
-  at_bitmap image = at_bitmap_init(0, 0, 0, 1);
+  at_bitmap_type image = at_bitmap_init(0, 0, 0, 1);
   at_exception_type exp = at_exception_new(msg_func, msg_data);
 
   fp = fopen (filename, "rb");
@@ -270,12 +270,12 @@ rle_fread (unsigned char *buf,
 return nelems;
 }
 
-static at_bitmap
+static at_bitmap_type
 ReadImage (FILE              *fp, 
            struct tga_header *hdr,
 	   at_exception_type * exp)
 {
-  at_bitmap image = at_bitmap_init(0, 0, 0, 1);
+  at_bitmap_type image = at_bitmap_init(0, 0, 0, 1);
   unsigned char *buffer;
   unsigned char *alphas;
 

@@ -66,6 +66,7 @@ int install_output_pstoedit_writers(void) {return 0;}
 #include "output-pov.h"
 #include "output-plt.h"
 #include "output-ild.h"
+#include "output-osm.h"
 
 static int install_input_readers  (void);
 static int install_output_writers (void);
@@ -128,6 +129,7 @@ install_output_writers (void)
   at_output_add_handler ("POV",  "Povray format",                output_pov_writer);
   at_output_add_handler ("PLT",  "HPGL format",                  output_plt_writer);
   at_output_add_handler ("ILD",  "ILDA format",                  output_ild_writer);
+  at_output_add_handler ("OSM",  "OpenStreetMap format",         output_osm_writer);
 
   return (0 << 1) || install_output_pstoedit_writers();
 }

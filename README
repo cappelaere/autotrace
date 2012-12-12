@@ -1,4 +1,26 @@
 AutoTrace is a utility for converting bitmap into vector graphics.
+This project has been forked from https://github.com/lemenkov/autotrace
+
+New Features
+============
+- Support the generation of OpenStreetMap polygons.
+- Support Latest LibPng
+
+Requirements
+============
+- Proj4 C++ library installed http://trac.osgeo.org/proj/
+
+How-To
+=======
+- Start with a GeoTiff in EPSG:3855 (OpenStreetMap Projection)
+- Convert it to a format acceptable to autotrace (like PBM) and generate a grayscale image.  
+- Then call autotrace and specify the following parameters:
+osm_min_x	(x,y in meters)
+osm_min_y
+osm_max_x,
+osm_max_y
+osm_res 	(Pixel resolution in meters used for re-projection to lat/lon)
+specify output-format osm and an output-file
 
 Features
 ========

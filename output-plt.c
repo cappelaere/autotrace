@@ -28,10 +28,10 @@
 
 #define NUM_SPLINES 8
 #define WriteInitialize(fp) (fputs("IN;",fp))
-#define WriteInitPt(fp,left,bottom,right,top) (fprintf(fp,"IP %d %d %d %d;", left,bottom,right,top))
+#define WriteInitPt(fp,left,bottom,right,top) (fprintf(fp,"IP %ld %ld %ld %ld;", left,bottom,right,top))
 #define WriteScale(fp,left,right,bottom,top) (fprintf(fp,"SC %d %d %d %d;", left,right,bottom,top))
-#define WritePenDown(fp,x,y) (fprintf(fp,"PD%d %d;", X_FLOAT_TO_UI32(x), Y_FLOAT_TO_UI32(y)))
-#define WritePenUp(fp,x,y) (fprintf(fp,"PU%d %d;", X_FLOAT_TO_UI32(x), Y_FLOAT_TO_UI32(y)))
+#define WritePenDown(fp,x,y) (fprintf(fp,"PD%ld %ld;", X_FLOAT_TO_UI32(x), Y_FLOAT_TO_UI32(y)))
+#define WritePenUp(fp,x,y) (fprintf(fp,"PU%ld %ld;", X_FLOAT_TO_UI32(x), Y_FLOAT_TO_UI32(y)))
 #define WriteSelectPen(fp,iColor) (fprintf(fp,"SP%d;",iColor))
 
 #define WDEVPIXEL 1280

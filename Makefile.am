@@ -64,11 +64,12 @@ output-dr2d.c output-dr2d.h \
 output-pov.c output-pov.h \
 output-plt.c output-plt.h \
 output-ild.c output-ild.h \
+output-osm.c output-osm.h \
 $(output_swf_src) \
 $(output_pstoedit_src)
 
 libautotrace_la_SOURCES =\
-                $(input_src) $(output_src)	\
+		$(input_src) $(output_src)	\
 		fit.c				\
 		bitmap.c 			\
 		spline.c 			\
@@ -81,13 +82,13 @@ libautotrace_la_SOURCES =\
 		input.c 			\
 		pxl-outline.c 			\
 		median.c 			\
-	        thin-image.c			\
+	    thin-image.c			\
 		logreport.c 			\
 		filename.c                      \
-                xstd.c                          \
-                epsilon-equal.h 		\
-	        thin-image.h                    \
-	        quantize.h                      \
+        xstd.c                          \
+        epsilon-equal.h 		\
+	    thin-image.h                    \
+	    quantize.h                      \
 		image-header.h    		\
 		fit.h  				\
 		bitmap.h 			\
@@ -95,9 +96,9 @@ libautotrace_la_SOURCES =\
 		curve.h 			\
 		vector.h 			\
 		pxl-outline.h                   \
-                despeckle.c                     \
-                despeckle.h			\
-	        exception.c                     \
+		despeckle.c                     \
+		despeckle.h			\
+		exception.c                     \
 		strgicmp.c			\
 		image-proc.c			\
 		image-proc.h			\
@@ -146,7 +147,7 @@ autotrace_LDADD =				\
 		$(GLIB2_LIBS)			\
 		$(POPT_LIBS)			\
 		$(INTLLIBS)			\
-		-lm
+		-lm -lproj
 
 m4datadir = $(datadir)/aclocal
 m4data_DATA = autotrace.m4

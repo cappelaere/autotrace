@@ -201,16 +201,16 @@ static int output_pdf_tailor(FILE* pdf_file, size_t length,
   tmp += (strlen (temp));
   sprintf(temp, "%d", ury);
   tmp += (strlen (temp));
-  OUT1     ("%010d 00000 n \n", tmp);
-  sprintf(temp, "%d", length);
+  OUT1     ("%010ld 00000 n \n", tmp);
+  sprintf(temp, "%ld", length);
   tmp += 50 + length + strlen(temp);
-  OUT1     ("%010d 00000 n \n", tmp);
+  OUT1     ("%010ld 00000 n \n", tmp);
   OUT_LINE ("trailer");
   OUT_LINE ("   << /Size 7");
   OUT_LINE ("      /Root 1 0 R");
   OUT_LINE ("   >>");
   OUT_LINE ("startxref");
-  OUT1 ("%d\n", tmp + 25);
+  OUT1 ("%ld\n", tmp + 25);
   OUT_LINE ("%%EOF");
 
   return 0;
@@ -270,7 +270,7 @@ out_splines (FILE *pdf_file, spline_list_array_type shape, size_t *length)
     SOUT_LINE ((shape.centerline || list.open) ? "S" : "f");
 
   OUT_LINE ("5 0 obj");
-  OUT1 ("   << /Length %d >>\n", *length);
+  OUT1 ("   << /Length %ld >>\n", *length);
   OUT_LINE ("stream");
 
   last_color.r = 0;

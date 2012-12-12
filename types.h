@@ -21,10 +21,29 @@
 #define AT_TYPES_H
 
 #include <glib.h>
+#ifndef __cplusplus
+/* Booleans.  */
+#ifndef bool
+typedef enum { false = 0, true = 1 } at_bool;
+#else
+#define at_bool bool
+#endif
+#else
+#define at_bool bool
+#endif
 
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
+
+/* The usual null-terminated string.  */
+typedef char *at_string;
+
+/* A generic pointer in ANSI C.  */
+typedef void *at_address;
+
+/* We use `real' for our floating-point variables.  */
+typedef float at_real;
 
 /* Cartesian points.  */
 typedef struct _at_coord

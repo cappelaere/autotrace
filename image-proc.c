@@ -31,15 +31,15 @@ static void check(int v1, int v2, int v3, struct etyp *t);
    every non-target point to the nearest target point. */
 
 at_distance_map
-new_distance_map(at_bitmap * bitmap, unsigned char target_value, gboolean padded, at_exception_type * exp)
+new_distance_map(at_bitmap_type * bitmap, unsigned char target_value, gboolean padded, at_exception_type * exp)
 {
     signed x, y;
     float d, min;
     at_distance_map dist;
-    unsigned char *b = AT_BITMAP_BITS(bitmap);
-    unsigned w = AT_BITMAP_WIDTH(bitmap);
-    unsigned h = AT_BITMAP_HEIGHT(bitmap);
-    unsigned spp = AT_BITMAP_PLANES(bitmap);
+    unsigned char *b = AT_BITMAP_BITS(*bitmap);
+    unsigned w = AT_BITMAP_WIDTH(*bitmap);
+    unsigned h = AT_BITMAP_HEIGHT(*bitmap);
+    unsigned spp = AT_BITMAP_PLANES(*bitmap);
 
     dist.height = h; dist.width = w;
     XMALLOC(dist.d, h * sizeof(float*));
@@ -289,17 +289,17 @@ medial_axis(bitmap_type *bitmap, at_distance_map *dist,
 /* Binarize a grayscale or color image. */
 
 void
-binarize(at_bitmap *bitmap)
+binarize(at_bitmap_type *bitmap)
 {
     unsigned i, npixels, spp;
     unsigned char *b;
 
     assert(bitmap != NULL);
-    assert(AT_BITMAP_BITS(bitmap) != NULL);
+    assert(AT_BITMAP_BITS(*bitmap) != NULL);
 
-    b = AT_BITMAP_BITS(bitmap);
-    spp = AT_BITMAP_PLANES(bitmap);
-    npixels = AT_BITMAP_WIDTH(bitmap) * AT_BITMAP_HEIGHT(bitmap);
+    b = AT_BITMAP_BITS(*bitmap);
+    spp = AT_BITMAP_PLANES(*bitmap);
+    npixels = AT_BITMAP_WIDTH(*bitmap) * AT_BITMAP_HEIGHT(*bitmap);
 
     if (spp == 1)
     {
@@ -314,8 +314,8 @@ binarize(at_bitmap *bitmap)
 	        b[i] = (LUMINANCE(rgb[0], rgb[1], rgb[2]) > GRAY_THRESHOLD
 		        ? WHITE : BLACK);
 		}
-	    XREALLOC(AT_BITMAP_BITS(bitmap), npixels);
-	    AT_BITMAP_PLANES(bitmap) = 1;
+	    XREALLOC(AT_BITMAP_BITS(*bitmap), npixels);
+	    AT_BITMAP_PLANES(*bitmap) = 1;
     }
     else
     {

@@ -33,7 +33,7 @@ extern "C" {
    following functions and macros. */
 
 typedef 
-at_bitmap (*at_input_func)   (gchar* name,
+at_bitmap_type (*at_input_func)   (gchar* name,
 				   at_input_opts_type * opts,
 				   at_msg_func msg_func, 
 				   gpointer msg_data,
@@ -76,7 +76,7 @@ extern int at_input_add_handler_full (const gchar* suffix,
    at_bitmap_new is for autotrace library user.
    at_bitmap_init is for input-handler developer.
    Don't use at_bitmap_new in your input-handler. */
-extern at_bitmap at_bitmap_init(unsigned char * area,
+extern at_bitmap_type at_bitmap_init(unsigned char * area,
 				     unsigned short width,
 				     unsigned short height,
 				     unsigned int planes);
@@ -84,15 +84,15 @@ extern at_bitmap at_bitmap_init(unsigned char * area,
 /* TODO: free storage */
 
 /* The number of color planes of each pixel */
-#define AT_BITMAP_PLANES(b)  ((b)->np)
+#define AT_BITMAP_PLANES(b)  ((b).np)
 
 /* The pixels, represented as an array of bytes (in contiguous storage).
    Each pixel is represented by np bytes.  */
-#define AT_BITMAP_BITS(b)  ((b)->bitmap)
+#define AT_BITMAP_BITS(b)  ((b).bitmap)
 
 /* These are convenient abbreviations for geting inside the members.  */
-#define AT_BITMAP_WIDTH(b)  ((b)->width)
-#define AT_BITMAP_HEIGHT(b)  ((b)->height)
+#define AT_BITMAP_WIDTH(b)  ((b).width)
+#define AT_BITMAP_HEIGHT(b)  ((b).height)
 
 /* This is the pixel at [ROW,COL].  */
 #define AT_BITMAP_PIXEL(b, row, col)					\

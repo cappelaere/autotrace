@@ -1,3 +1,7 @@
+2012-11-25	Pat Cappelaere <pat@cappelaere.com>
+	* Added OpenStreetMap Polygons Output
+	* fix for libpng
+
 2005-09-19  Robin Adams <radams@linux-laser.org>
 
 	* output-ild.[ch]: New files.

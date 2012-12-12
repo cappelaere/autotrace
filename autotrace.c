@@ -130,15 +130,15 @@ at_output_opts_free(at_output_opts_type * opts)
   free(opts);
 }
 
-at_bitmap *
+at_bitmap_type *
 at_bitmap_read (at_bitmap_reader * reader,
 		gchar* filename,
 		at_input_opts_type * opts,
 		at_msg_func msg_func, gpointer msg_data)
 {
   gboolean new_opts = FALSE;
-  at_bitmap * bitmap;
-  XMALLOC(bitmap, sizeof(at_bitmap)); 
+  at_bitmap_type * bitmap;
+  XMALLOC(bitmap, sizeof(at_bitmap_type)); 
   if (opts == NULL)
     {
       opts     = at_input_opts_new();
@@ -150,21 +150,21 @@ at_bitmap_read (at_bitmap_reader * reader,
   return bitmap;
 }
 
-at_bitmap *
+at_bitmap_type *
 at_bitmap_new(unsigned short width,
 	      unsigned short height,
 	      unsigned int planes)
 {
-  at_bitmap * bitmap;
-  XMALLOC(bitmap, sizeof(at_bitmap)); 
+  at_bitmap_type * bitmap;
+  XMALLOC(bitmap, sizeof(at_bitmap_type)); 
   *bitmap = at_bitmap_init(NULL, width, height, planes);
   return bitmap;
 }
 
-at_bitmap *
-at_bitmap_copy(const at_bitmap * src)
+at_bitmap_type *
+at_bitmap_copy(const at_bitmap_type * src)
 {
-  at_bitmap * dist;
+  at_bitmap_type * dist;
   unsigned short width, height, planes;
 
   width  = at_bitmap_get_width(src);
@@ -178,13 +178,13 @@ at_bitmap_copy(const at_bitmap * src)
   return dist;
 }
 
-at_bitmap
+at_bitmap_type
 at_bitmap_init(unsigned char * area,
 	       unsigned short width,
 	       unsigned short height,
 	       unsigned int planes)
 {
-  at_bitmap bitmap;
+  at_bitmap_type bitmap;
   
   if (area)
     bitmap.bitmap = area;
@@ -203,27 +203,26 @@ at_bitmap_init(unsigned char * area,
 }
 
 void 
-at_bitmap_free (at_bitmap * bitmap)
+at_bitmap_free (at_bitmap_type * bitmap)
 {
-  if (AT_BITMAP_BITS (bitmap) != NULL)
-    free (AT_BITMAP_BITS (bitmap));
+  free_bitmap (bitmap);
   free(bitmap);
 }
 
 unsigned short
-at_bitmap_get_width (const at_bitmap * bitmap)
+at_bitmap_get_width (const at_bitmap_type * bitmap)
 {
   return bitmap->width;
 }
 
 unsigned short
-at_bitmap_get_height (const at_bitmap * bitmap)
+at_bitmap_get_height (const at_bitmap_type * bitmap)
 {
   return bitmap->height;
 }
 
 unsigned short
-at_bitmap_get_planes (const at_bitmap * bitmap)
+at_bitmap_get_planes (const at_bitmap_type * bitmap)
 {
   /* Here we use cast rather changing the type definition of 
      at_bitmap::np to keep binary compatibility. */
@@ -231,7 +230,7 @@ at_bitmap_get_planes (const at_bitmap * bitmap)
 }
 
 void
-at_bitmap_get_color (const at_bitmap * bitmap,
+at_bitmap_get_color (const at_bitmap_type * bitmap,
 		     unsigned int row, unsigned int col,
 		     at_color * color)
 {
@@ -239,7 +238,7 @@ at_bitmap_get_color (const at_bitmap * bitmap,
   g_return_if_fail (color);
   g_return_if_fail (bitmap);
   
-  p  = AT_BITMAP_PIXEL (bitmap, row, col);
+  p  = AT_BITMAP_PIXEL (*bitmap, row, col);
   if (at_bitmap_get_planes (bitmap) >= 3)
     at_color_set(color, p[0], p[1], p[2]);
   else
@@ -247,7 +246,7 @@ at_bitmap_get_color (const at_bitmap * bitmap,
 }
 
 gboolean
-at_bitmap_equal_color(const at_bitmap * bitmap,
+at_bitmap_equal_color(const at_bitmap_type * bitmap,
 		      unsigned int row, unsigned int col,
 		      at_color * color)
 {
@@ -261,7 +260,7 @@ at_bitmap_equal_color(const at_bitmap * bitmap,
 }
 
 at_splines_type * 
-at_splines_new (at_bitmap * bitmap,
+at_splines_new (at_bitmap_type * bitmap,
 		at_fitting_opts_type * opts,
 		at_msg_func msg_func, gpointer msg_data)
 {
@@ -273,7 +272,7 @@ at_splines_new (at_bitmap * bitmap,
 /* at_splines_new_full modify its argument: BITMAP 
    when despeckle, quantize and/or thin_image are invoked. */
 at_splines_type * 
-at_splines_new_full (at_bitmap * bitmap,
+at_splines_new_full (at_bitmap_type * bitmap,
 		     at_fitting_opts_type * opts,
 		     at_msg_func msg_func, 
 		     gpointer msg_data,

@@ -61,7 +61,7 @@ static char * read_command_line (int, char * [],
 				 at_input_opts_type *,
 				 at_output_opts_type *);
 
-static void dump (at_bitmap * bitmap, FILE * fp);
+static void dump (at_bitmap_type * bitmap, FILE * fp);
 
 static void input_list_formats(FILE * file);
 static void output_list_formats(FILE* file);
@@ -79,7 +79,7 @@ main (int argc, char * argv[])
   char * input_name, * input_rootname;
   char * logfile_name = NULL, * dumpfile_name = NULL;
   at_splines_type * splines;
-  at_bitmap * bitmap;
+  at_bitmap_type * bitmap;
   FILE *output_file;
   FILE *dump_file;
 
@@ -270,38 +270,44 @@ read_command_line (int argc, char * argv[],
   int g;   /* `getopt' return code.  */
   int option_index;
   struct option long_options[]
-    = { { "align-threshold",		1, 0, 0 },
-        { "background-color",		1, 0, 0 },
+    = { { "align-threshold",			1, 0, 0 },
+        { "background-color",			1, 0, 0 },
         { "debug-arch",                 0, 0, 0 },
         { "debug-bitmap",               0, (int *)&dumping_bitmap, 1 },
-        { "centerline",			0, 0, 0 },
-	{ "charcode",			1, 0, 0 },
+        { "centerline",					0, 0, 0 },
+	{ "charcode",						1, 0, 0 },
         { "color-count",                1, 0, 0 },
         { "corner-always-threshold",    1, 0, 0 },
         { "corner-surround",            1, 0, 0 },
         { "corner-threshold",           1, 0, 0 },
         { "despeckle-level",            1, 0, 0 },
         { "despeckle-tightness",        1, 0, 0 },
-        { "dpi",			1, 0, 0 },
+        { "dpi",						1, 0, 0 },
         { "error-threshold",            1, 0, 0 },
         { "filter-iterations",          1, 0, 0 },
         { "help",                       0, 0, 0 },
-        { "input-format",		1, 0, 0 },
+        { "input-format",				1, 0, 0 },
         { "line-reversion-threshold",	1, 0, 0 },
         { "line-threshold",             1, 0, 0 },
         { "list-output-formats",        0, 0, 0 },
         { "list-input-formats",         0, 0, 0 },
         { "log",                        0, (int *) &logging, 1 },
         { "noise-removal",              1, 0, 0 },
-        { "output-file",		1, 0, 0 },
-        { "output-format",		1, 0, 0 },
+        { "output-file",				1, 0, 0 },
+        { "output-format",				1, 0, 0 },
         { "preserve-width",             0, 0, 0 },
         { "range",                      1, 0, 0 },
         { "remove-adjacent-corners",    0, 0, 0 },
         { "tangent-surround",           1, 0, 0 },
         { "report-progress",            0, (int *) &report_progress, 1},
         { "version",                    0, (int *) &printed_version, 1 },
-        { "width-weight-factor",               1, 0, 0 },
+        { "width-weight-factor",        1, 0, 0 },
+		{ "osm_min_x", 			        1, 0, 0 },
+		{ "osm_min_y", 			        1, 0, 0 },
+		{ "osm_max_x", 			        1, 0, 0 },
+		{ "osm_max_y", 			        1, 0, 0 },
+		{ "osm_res", 			        1, 0, 0 },
+
         { 0, 0, 0, 0 } };
 
   while (TRUE)
@@ -352,7 +358,7 @@ read_command_line (int argc, char * argv[],
 	  else
 	    str = "big";
 	  
-	  printf("%d bit, %s endian\n",
+	  printf("%ld bit, %s endian\n",
 		 sizeof(void *) * 8,
 		 str);
 	  exit(0);
@@ -441,6 +447,17 @@ read_command_line (int argc, char * argv[],
       else if (ARGUMENT_IS ("width-weight-factor"))
 	fitting_opts->width_weight_factor = (gfloat) atof (optarg);
 
+	else if (ARGUMENT_IS ("osm_min_x")) 
+		output_opts->osm_min_x = (at_real) atof (optarg);
+	 else if (ARGUMENT_IS ("osm_min_y"))
+		output_opts->osm_min_y = (at_real) atof (optarg);
+	 else if (ARGUMENT_IS ("osm_max_x"))
+		output_opts->osm_max_x = (at_real) atof (optarg);
+	 else if (ARGUMENT_IS ("osm_max_y"))
+		output_opts->osm_max_y = (at_real) atof (optarg);
+	 else if (ARGUMENT_IS ("osm_res")) 
+		output_opts->osm_res = (at_real) atof (optarg);
+	
       /* Else it was just a flag; getopt has already done the assignment.  */
     }
   FINISH_COMMAND_LINE ();
@@ -517,7 +534,7 @@ dot_printer(gfloat percentage, gpointer client_data)
 }
 
 static void
-dump (at_bitmap * bitmap, FILE * fp)
+dump (at_bitmap_type * bitmap, FILE * fp)
 {
   unsigned short width, height;
   unsigned int np;
@@ -526,7 +543,7 @@ dump (at_bitmap * bitmap, FILE * fp)
   height = at_bitmap_get_height (bitmap);
   np 	 = at_bitmap_get_planes (bitmap);
 
-  fwrite(AT_BITMAP_BITS(bitmap), 
+  fwrite(AT_BITMAP_BITS(*bitmap), 
 	 sizeof(unsigned char),
 	 width * height * np,
 	 fp);

@@ -24,15 +24,22 @@
 #include "config.h"
 #endif /* Def: HAVE_CONFIG_H */
 
-#include "input.h"
-#include "input-magick.h"
-#include "bitmap.h"
+//#include "input.h"
+//#include "input-magick.h"
+//#include "bitmap.h"
 
+//#include <stdio.h>
+//#include <stdlib.h>
+//#include <string.h>
+//#include <sys/types.h> /* Needed for correct interpretation of magick/api.h */
+//#include <magick/api.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/types.h> /* Needed for correct interpretation of magick/api.h */
 #include <magick/api.h>
+#include "input-magick.h"
+#include "bitmap.h"
 
 static at_bitmap_type input_magick_reader (at_string filename,
 					   at_input_opts_type * opts,
@@ -59,7 +66,8 @@ input_magick_reader(at_string filename,
 #if (MagickLibVersion < 0x0538)
   MagickIncarnate("");
 #else
-  InitializeMagick("");
+//  InitializeMagick("");
+  MagickCoreGenesis("",MagickFalse);
 #endif
   GetExceptionInfo(&exception);
   image_info=CloneImageInfo((ImageInfo *) NULL);
@@ -94,7 +102,9 @@ input_magick_reader(at_string filename,
 
   for(j=0,runcount=0,point=0;j<image->rows;j++)
     for(i=0;i<image->columns;i++) {
-      p=GetOnePixel(image,i,j);
+      //p=GetOnePixel(image,i,j);
+      GetOneAuthenticPixel(image,i,j,&p,&image->exception);
+
       AT_BITMAP_BITS(bitmap)[point++]=pixel->red; /* if gray: red=green=blue */
       if(np==3) {
         AT_BITMAP_BITS(bitmap)[point++]=pixel->green;
@@ -131,7 +141,7 @@ install_input_magick_readers(void)
 #if (MagickLibVersion < 0x0538)
 #define AT_MAGICK_INITIALIZER()     MagickIncarnate("")
 #else  /* (MagickLibVersion < 0x0538) */
-#define AT_MAGICK_INITIALIZER()     InitializeMagick("")
+#define AT_MAGICK_INITIALIZER()           MagickCoreGenesis("",MagickFalse);
 #endif	/* (MagickLibVersion < 0x0538) */
 
 
@@ -144,7 +154,7 @@ install_input_magick_readers(void)
   {
     ExceptionInfo exception;
 
-    AT_MAGICK_INFO_TYPE_MODIFIER MagickInfo *info, *magickinfo;
+    AT_MAGICK_INFO_TYPE_MODIFIER const MagickInfo *info, *magickinfo;
     AT_MAGICK_INITIALIZER() ;
 
     GetExceptionInfo(&exception);

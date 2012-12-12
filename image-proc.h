@@ -23,7 +23,7 @@ typedef struct
 
 
 /* Allocate and compute a new distance map. */
-extern at_distance_map new_distance_map(at_bitmap *,
+extern at_distance_map new_distance_map(at_bitmap_type *,
     unsigned char target_value, gboolean padded,
 					  at_exception_type * exp);
 
@@ -31,12 +31,12 @@ extern at_distance_map new_distance_map(at_bitmap *,
 extern void free_distance_map(at_distance_map*);
 
 
-extern void medial_axis(at_bitmap *bitmap, at_distance_map *dist,
+extern void medial_axis(at_bitmap_type *bitmap, at_distance_map *dist,
     const at_color *bg_color);
 
 
 /* Binarize a grayscale or color image. */
-extern void binarize(at_bitmap*);
+extern void binarize(at_bitmap_type*);
 
 
 /* Thin a binary image, replacing the original image with the thinned one. */
